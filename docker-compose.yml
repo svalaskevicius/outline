@@ -13,3 +13,9 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: outline
     user: "postgres:postgres"
+  imagen:
+    image: imagen:0.1.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./imagen-cachedio:/tmp/work

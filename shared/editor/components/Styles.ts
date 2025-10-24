@@ -1411,6 +1411,45 @@ mark {
     }
 }
 
+.code-block[data-language=plantuml] {
+  margin: 0.75em 0;
+
+  ${
+    !props.staticHTML &&
+    css`
+      pre {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: -20px;
+        overflow: hidden;
+      }
+    `
+  }
+
+  &:is(.code-active) + .plantuml-diagram-wrapper {
+    cursor: zoom-in;
+  }
+
+  // Hide code without display none so toolbar can still be positioned against it
+  &:not(.code-active) {
+    height: ${props.staticHTML || props.readOnly ? "auto" : "0"};
+    margin: -0.75em 0;
+    overflow: hidden;
+
+    // Allows the margin to collapse correctly by moving div out of the flow
+    position: ${props.staticHTML || props.readOnly ? "relative" : "absolute"};
+  }
+}
+
+.ProseMirror[contenteditable="false"] .code-block[data-language=plantuml] {
+    height: 0;
+    overflow: hidden;
+    margin: -0.5em 0 0 0;
+    & + .plantuml-diagram-wrapper {
+      cursor: zoom-in;
+    }
+}
+
 .code-block.with-line-numbers {
   pre {
     padding-left: calc(var(--line-number-gutter-width, 0) * 1em + 1.5em);
@@ -1437,6 +1476,36 @@ mark {
 }
 
 .mermaid-diagram-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.75em 0;
+  min-height: 1.6em;
+  background: ${props.theme.codeBackground};
+  border-radius: ${EditorStyleHelper.blockRadius};
+  border: 1px solid ${props.theme.codeBorder};
+  padding: 8px;
+  user-select: none;
+  cursor: default;
+
+  * {
+    font-family: ${props.theme.fontFamily};
+  }
+
+  &.empty {
+    font-family: ${props.theme.fontFamilyMono};
+    font-size: 14px;
+    color: ${props.theme.placeholder};
+  }
+
+  &.parse-error {
+    font-family: ${props.theme.fontFamilyMono};
+    font-size: 14px;
+    color: ${props.theme.brand.red};
+  }
+}
+
+.plantuml-diagram-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1914,6 +1983,12 @@ table {
 
 .folded-content,
 .folded-content + .mermaid-diagram-wrapper {
+  display: none;
+  user-select: none;
+}
+
+.folded-content,
+.folded-content + .plantml-diagram-wrapper {
   display: none;
   user-select: none;
 }

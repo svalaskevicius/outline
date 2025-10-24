@@ -28,6 +28,7 @@ import { selectAll } from "../commands/selectAll";
 import toggleBlockType from "../commands/toggleBlockType";
 import { CodeHighlighting } from "../extensions/CodeHighlighting";
 import Mermaid from "../extensions/Mermaid";
+import PlantUml from "../extensions/PlantUml";
 import {
   getRecentlyUsedCodeLanguage,
   setRecentlyUsedCodeLanguage,
@@ -191,6 +192,11 @@ export default class CodeFence extends Node {
         lineNumbers: this.showLineNumbers,
       }),
       Mermaid({
+        name: this.name,
+        isDark: this.editor.props.theme.isDark,
+        editor: this.editor,
+      }),
+      PlantUml({
         name: this.name,
         isDark: this.editor.props.theme.isDark,
         editor: this.editor,

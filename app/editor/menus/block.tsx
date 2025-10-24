@@ -223,5 +223,12 @@ export default function blockMenuItems(
       keywords: "diagram flowchart",
       attrs: { language: "mermaidjs" },
     },
+    {
+      name: "code_block",
+      title: "PlantUML Diagram",
+      icon: <Img src="/images/plantuml.png" alt="PlantUML Diagram" />,
+      keywords: "diagram flowchart",
+      attrs: { language: "plantuml" },
+    },
   ];
 }
